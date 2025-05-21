@@ -1,0 +1,18 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: localhost/api/avaliacoes
+  body: formUrlEncoded
+  auth: inherit
+}
+
+body:form-urlencoded {
+  nota: 10
+  descricao: 
+  livro_id: 1
+  usuario_id: 1
+}

@@ -1,0 +1,22 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: localhost/api/avaliacoes/:id
+  body: formUrlEncoded
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:form-urlencoded {
+  nota: 9
+  descricao: excelente livro!!
+  usuario_id: 3
+  livro_id: 1
+}

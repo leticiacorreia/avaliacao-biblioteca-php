@@ -23,6 +23,6 @@ class Avaliacao extends Model
 
     public function livro() : BelongsTo
     {
-        return $this->BelongsTo(Livro::class);
+        return $this->BelongsTo(Livro::class, 'livro_id');
     }
 }

@@ -29,9 +29,7 @@ class AvaliacaoService
 
     public function find(Avaliacao $avaliacao)
     {
-        return Avaliacao::find($avaliacao)
-                            ->with('usuario')
-                            ->with('livro');
+        return Avaliacao::find($avaliacao)->with('usuario')->with('livro')->get();
     }
 
     public function create($request_validated)

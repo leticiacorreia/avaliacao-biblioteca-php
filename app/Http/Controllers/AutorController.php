@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Resources\AutorResource;
 use App\Models\Autor;
 use App\Services\AutorService;
 
 class AutorController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $autores = (new AutorService())->list($request->get('search', ''));
-        return response()->json($autores);
+        return AutorResource::collection($autores);
     }
 
-    public function show(Autor $autore): JsonResponse
+    public function show(Autor $autore)
     {
-        return response()->json($autore);
+        return AutorResource::make($autore);
     }
 
     public function store(Request $request)

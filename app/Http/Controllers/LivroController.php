@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\LivroService;
+use App\Http\Resources\LivroResource;
 use App\Models\Livro;
 
 class LivroController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $livros = (new LivroService())->list($request->get('search', ''));
-        return response()->json($livros);
+        return LivroResource::collection($livros);
     }
 
-    public function show(Livro $livro): JsonResponse
+    public function show(Livro $livro)
     {
         try {
-            return response()->json($livro);
+            return LivroResource::make($livro);
         } catch (Exception $exception) {
             return response()->json(['status' => false , 'message' =>'Livro não encontrado'], 404);
         }

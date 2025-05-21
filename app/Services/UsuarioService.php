@@ -16,11 +16,6 @@ class UsuarioService
         }
     }
 
-    public function find(Usuario $usuario)
-    {
-        return Usuario::find($usuario);
-    }
-
     public function create($request_validated)
     { 
         return Usuario::create([

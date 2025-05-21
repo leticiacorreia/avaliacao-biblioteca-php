@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Avaliacao;
+use App\Http\Resources\AvaliacaoResource;
 use App\Services\AvaliacaoService;
 
 class AvaliacaoController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
-        $avaliacoes = (new AvaliacaoService())->list($request->get('search', ''));
-        return response()->json($avaliacoes);
+        $avaliacoes = (new AvaliacaoService())->list($request->get('usuario_id'), $request->get('livro_id'), $request->get('nota'));
+        return AvaliacaoResource::collection($avaliacoes);
     }
 
-    public function show(Avaliacao $avaliacao): JsonResponse
+    public function show(Avaliacao $avaliacao)
     {
-        return response()->json((new AvaliacaoService())->find($avaliacao));
+        return AvaliacaoResource::make($avaliacao);
     }
 
     public function store(Request $request)

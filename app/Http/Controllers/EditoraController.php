@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\EditoraService;
+use App\Http\Resources\EditoraResource;
 use App\Models\Editora;
 
 class EditoraController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $editoras = (new EditoraService())->list($request->get('search', ''));
-        return response()->json($editoras);
+
         return EditoraResource::collection($editoras);
     }
 
-    public function show(Editora $editora): JsonResponse
+    public function show(Editora $editora)
     {
-        return response()->json([$editora]);
+        return EditoraResource::make($editora);
     }
 
     public function store(Request $request)
@@ -40,8 +41,6 @@ class EditoraController extends Controller
             'nome' => ['required', 'string', 'min:3'],
             'descricao'=> ['string', 'nullable'],
         ]);
-
-        
 
         $editora = (new EditoraService())->update($validated, $editora);
 

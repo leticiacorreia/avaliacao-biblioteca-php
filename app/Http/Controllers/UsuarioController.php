@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Http\Resources\UsuarioResource;
 use App\Services\UsuarioService;
 
 class UsuarioController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $usuarios = (new UsuarioService())->list($request->get('search', ''));
-        return response()->json($usuarios);
+        return UsuarioResource::collection($usuarios);
     }
 
-    public function show(Usuario $usuario): JsonResponse
+    public function show(Usuario $usuario)
     {
-        $usuario = (new UsuarioService())->find($usuario);
-        return response()->json($usuario);
+        return UsuarioResource::make($usuario);
     }
 
     public function store(Request $request)
